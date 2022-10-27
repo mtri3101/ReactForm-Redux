@@ -1,24 +1,30 @@
 import { createReducer } from "@reduxjs/toolkit";
 
 const initialState = {
-  arrSV: [{ maSV: '1', hoTen: 'abc', soDienThoai: '0123456778', email: 'aczxc@gmail.com' }]
+  arrSV: JSON.parse(localStorage.getItem('data')) || []
 }
 
-// JSON.parse(localStorage.getItem('SV')) || [],
+
 
 export default (state = initialState, { type, payload }) => {
+  let data = [...state.arrSV];
   switch (type) {
     case 'THEM_SV': {
-      state.arrSV.push(payload);
-      state.arrSV = [...state.arrSV];
-      return { ...state }
+      data.push(payload);
+      localStorage.setItem('data', JSON.stringify(data))
+      console.log(data);
+      return{
+        ...state, arrSV:data,
+      }
     }
     case 'XOA_SV': {
-      state.arrSV = state.arrSV.filter((SV) => SV.maSV !== payload);
-      return { ...state }
+      data = data.filter((SV) => SV.maSV !== payload);
+      let updateList = JSON.stringify(data)
+      localStorage.setItem('data',updateList)
+      return { ...state, arrSV:data }
     }
     case 'SUA_SV': {
-      state.arrSV = state.arrSV.map((SV, i) => SV.maSV === payload.maSV ? {
+      data = data.map((SV,i) => SV.maSV === payload.maSV ? {
         ...SV,
         hoTen: payload.hoTen,
         soDienThoai: payload.soDienThoai,
@@ -26,7 +32,7 @@ export default (state = initialState, { type, payload }) => {
       }
       :SV
       )
-      return {...state}
+      return {...state,arrSV:data}
     };
     default:
       return state

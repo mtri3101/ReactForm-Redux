@@ -19,7 +19,6 @@ class ReactForm extends Component {
             email: ''
         },
         isSubmit: true,
-        listSV: [{ id: '1', hoTen: 'Abc', soDienThoai: '0123456779', email: 'abc@gmail.com' }]
     }
 
     handleChange = (e) => {
@@ -106,9 +105,7 @@ class ReactForm extends Component {
         console.log('arrSV',this.props.arrSV)
     }
 
-    saveLocalStorage = () =>{
-        localStorage.setItem('SV', JSON.stringify(this.state.values))
-    }
+  
 
 
     render() {
