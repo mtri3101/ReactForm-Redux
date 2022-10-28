@@ -33,7 +33,10 @@ export default (state = initialState, { type, payload }) => {
       :SV
       )
       return {...state,arrSV:data}
-    };
+    } case 'FIND_SV': {
+      data = data.filter((SV)=> SV.hoTen.toLowerCase().includes(payload))
+      return { ...state, arrSV:data }
+    }
     default:
       return state
   }

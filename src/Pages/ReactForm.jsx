@@ -85,7 +85,6 @@ class ReactForm extends Component {
     }
 
     deleteSV = (id) => {
-        console.log(id)
         this.props.xoaSV(id)
 
     }
@@ -105,6 +104,11 @@ class ReactForm extends Component {
         console.log('arrSV',this.props.arrSV)
     }
 
+    handleSearch = (e) =>{
+        let {value} = e.target;
+        this.props.findSV(value)
+        
+    }
   
 
 
@@ -149,7 +153,7 @@ class ReactForm extends Component {
                         <div className="card-footer">
                             <button type='submit' className='btn btn-primary' disabled={this.state.isSubmit}>Thêm sinh viên</button>
                             <button className='btn btn-success mx-3' type='button' onClick={() => { this.handleUpdate() }}>Update</button>
-                            <input  type="text" placeholder='Search'  id='search' />
+                            <input  type="text" placeholder='Search'  id='search' onInput={this.handleSearch} />
                         </div>
                     </div>
                 </form>
@@ -223,6 +227,13 @@ const mapDispatchToProps = (dispatch) => {
             }
             dispatch(action)
         },
+        findSV: (value) =>{
+            const action = {
+                type: 'FIND_SV',
+                payload: value
+            }
+            dispatch(action)
+        }
 
     }
 }
