@@ -34,8 +34,13 @@ export default (state = initialState, { type, payload }) => {
       )
       return {...state,arrSV:data}
     } case 'FIND_SV': {
-      data = data.filter((SV)=> SV.hoTen.toLowerCase().includes(payload))
-      return { ...state, arrSV:data }
+      if(payload === ''){
+        return{
+          ...state, arrSV: JSON.parse(localStorage.getItem('data')) || []
+        }
+      }
+      data = JSON.parse(localStorage.getItem('data')).filter((SV)=> SV.hoTen.toLowerCase().includes(payload))
+      return { ...state,arrSV:data}
     }
     default:
       return state
